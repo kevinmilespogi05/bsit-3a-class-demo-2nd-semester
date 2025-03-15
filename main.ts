@@ -4,35 +4,46 @@ const prisma = new PrismaClient()
 
 async function main() {
 
-    const userWithPost = await prisma.user.findMany({
-        include: {
-            post: true
-        }
-    });
+    // const addUser = await prisma.user.create({
+    //     data: {
+    //         name: "Bob Smith",
+    //         email: "bobsmith@gmail.com",
+    //         age: 25,
+    //         post: {
+    //             create: [
+    //                 {
+    //                     title: "Post 1",
+    //                     content: "Content 1",
+    //                 },
+    //                 {
+    //                     title: "Post 2",
+    //                     content: "Content 2",
+    //                 }
+    //             ]
+    //         }
+    //     }
+    // })
 
-    console.dir(userWithPost, { depth: null });
+    // const getAllPosts = await prisma.post.findMany()
 
-    return;
-    const user = await prisma.user.create({
-        data: {
-            email: "test@mail.com",
-            name: "Juan Dela Cruz",
-            age: 26,
-            post: {
-                create: [
-                    {
-                        title: "test1",
-                        content: "123"
-                    },
-                    {
-                        title: "test2",
-                        content: "123"
-                    }
-                ]
-            }
+    const deleteUserAndPosts = await prisma.user.delete({
+        where: {
+            userId: "f4d3e991-0e93-40ea-b42b-afb9514c7c61"
         }
     })
-    console.log(user);
+
+    console.dir(deleteUserAndPosts, { depth: null })
+
+    // const getUserWithPosts = await prisma.user.findUnique({
+    //     where: {
+    //         userId: "f4d3e991-0e93-40ea-b42b-afb9514c7c61"
+    //     },
+    //     include: {
+    //         post: true
+    //     }
+    // })
+
+    // console.dir(getUserWithPosts, { depth: null })
 }
 
 main()
